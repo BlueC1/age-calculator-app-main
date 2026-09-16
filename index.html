@@ -8,7 +8,47 @@
     <title>Frontend Mentor | Age calculator app</title>
   </head>
   <body>
-    Day DD Month MM Year YYYY -- years -- months -- days
+    <div class="page-container">
+      <div class="card-container">
+        <div class="form-container">
+          <form>
+            <div class="label-container">
+              <label>
+                Day
+                <input type="number" placeholder="DD" id="day" />
+                <small id="day-error"></small>
+              </label>
+
+              <label>
+                Month
+                <input type="number" placeholder="MM" id="month" />
+                <small id="month-error"></small>
+              </label>
+
+              <label>
+                Year
+                <input type="number" placeholder="YYYY" id="year" />
+                <small id="year-error"></small>
+              </label>
+            </div>
+
+            <button type="submit" id="submit-btn">
+              <img src="images/icon-arrow.svg" alt="submit button" />
+            </button>
+          </form>
+
+          <div class="line"></div>
+
+          <div class="results-container">
+            <p><span id="span-years">--</span> years</p>
+
+            <p><span id="span-months">--</span> months</p>
+
+            <p><span id="span-days">--</span> days</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="index.js"></script>
   </body>
