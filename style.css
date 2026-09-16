@@ -71,7 +71,6 @@ label {
 
 input {
   margin-top: 0.2rem;
-  width: 5rem;
   border: 1px solid var(--clr-grey-200);
   border-radius: 0.4rem;
   width: 6.5rem;
@@ -154,4 +153,38 @@ span {
 .error,
 small {
   color: var(--clr-red);
+}
+
+@media (min-width: 60em) {
+  .card-container {
+    width: 40rem;
+  }
+
+  .label-container {
+    justify-content: start;
+  }
+
+  input {
+    width: 8rem;
+    font-size: 1.3rem;
+  }
+
+  input::placeholder {
+    font-size: 1.3rem;
+  }
+
+  button {
+    bottom: -6.1rem;
+    left: 94%;
+    padding: 1rem;
+  }
+
+  button img {
+    width: 2.5rem;
+    height: 2.1rem;
+  }
+
+  .results-container p {
+    font-size: 4rem;
+  }
 }
