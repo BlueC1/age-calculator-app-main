@@ -58,10 +58,13 @@ form {
   gap: 1.5rem;
 }
 
-label {
+.input-container {
+  position: relative;
   display: flex;
   flex-direction: column;
-  position: relative;
+}
+
+label {
   color: var(--clr-grey-500);
   font-weight: var(--fw-700);
   text-transform: uppercase;
@@ -70,6 +73,9 @@ label {
 }
 
 input {
+  color: var(--clr-black);
+  font-size: 1rem;
+  font-weight: var(--fw-700);
   margin-top: 0.2rem;
   border: 1px solid var(--clr-grey-200);
   border-radius: 0.4rem;
@@ -88,7 +94,6 @@ input:hover {
   border: 1px solid var(--clr-grey-500);
 }
 
-input,
 input::placeholder {
   color: var(--clr-grey-500);
   font-size: 1rem;
@@ -104,6 +109,7 @@ input::-webkit-outer-spin-button {
 small {
   position: absolute;
   bottom: -1.4rem;
+  left: 0;
   width: 115%;
   font-size: 0.65rem;
   font-style: italic;
@@ -119,6 +125,7 @@ button {
   border-radius: 50%;
   padding: 0.8rem;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 button:hover {
@@ -150,7 +157,10 @@ span {
   color: var(--clr-purple);
 }
 
-.error,
+.error {
+  border: 1px solid red;
+}
+
 small {
   color: var(--clr-red);
 }
