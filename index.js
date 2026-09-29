@@ -1,7 +1,20 @@
 const form = document.querySelector('form');
-const label = document.querySelectorAll('label');
-const small = document.querySelectorAll('small');
-const input = document.querySelectorAll('input');
+
+const dayLabel = document.getElementById('day-label');
+const monthLabel = document.getElementById('month-label');
+const yearLabel = document.getElementById('year-label');
+
+const dayInput = document.getElementById('day');
+const monthInput = document.getElementById('month');
+const yearInput = document.getElementById('year');
+
+const dayError = document.getElementById('day-error');
+const monthError = document.getElementById('month-error');
+const yearError = document.getElementById('year-error');
+
+const yearResult = document.getElementById('span-years');
+const monthResult = document.getElementById('span-months');
+const dayResult = document.getElementById('span-days');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -9,53 +22,106 @@ form.addEventListener('submit', (e) => {
   checkEmpty();
 });
 
+let isValid = false;
+
 function checkEmpty() {
-  for (let i = 0; i < input.length; i++) {
-    if (!input[i].value) {
-      small[i].textContent = 'This field is required';
-      input[i].classList.add('error');
-      label[i].style.color = 'var(--clr-red)';
-    } else if (input[i].value) {
-      small[i].textContent = '';
-      input[i].classList.remove('error');
-      label[i].style.color = 'var(--clr-grey-500)';
-      checkDate();
-    }
+  if (!dayInput.value) {
+    dayError.textContent = 'This field is required';
+    errors(dayInput, dayLabel);
+  } else {
+    noError(dayError, dayInput, dayLabel);
+  }
+
+  if (!monthInput.value) {
+    monthError.textContent = 'This field is required';
+    errors(monthInput, monthLabel);
+  } else {
+    noError(monthError, monthInput, monthLabel);
+  }
+
+  if (!yearInput.value) {
+    yearError.textContent = 'This field is required';
+    errors(yearInput, yearLabel);
+  } else {
+    noError(yearError, yearInput, yearLabel);
+  }
+
+  if (dayInput.value && monthInput.value && yearInput.value) {
+    checkValid();
   }
 }
 
-function checkDate() {
-  for (let i = 0; i < input.length; i++) {
-    if (input[0].value > 31 || input[0].value < 1) {
-      small[0].textContent = 'Must be a valid day';
-      input[0].classList.add('error');
-      label[0].style.color = 'var(--clr-red)';
-    } else {
-      small[0].textContent = '';
-      input[0].classList.remove('error');
-      label[0].style.color = 'var(--clr-grey-500)';
-    }
+function checkValid() {
+  if (dayInput.value > 31 || dayInput.value < 1) {
+    dayError.textContent = 'Must be a valid day';
+    errors(dayInput, dayLabel);
+  } else {
+    noError(dayError, dayInput, dayLabel);
+  }
 
-    if (input[1].value > 12 || input[1].value < 1) {
-      small[1].textContent = 'Must be a valid month';
-      input[1].classList.add('error');
-      label[1].style.color = 'var(--clr-red)';
-    } else {
-      small[1].textContent = '';
-      input[1].classList.remove('error');
-      label[1].style.color = 'var(--clr-grey-500)';
-    }
+  if (monthInput.value > 12 || monthInput.value < 1) {
+    monthError.textContent = 'Must be a valid month';
+    errors(monthInput, monthLabel);
+  } else {
+    noError(monthError, monthInput, monthLabel);
+  }
 
-    if (input[2].value > 2026 || input[2].value < 1900) {
-      small[2].textContent = 'Must be a valid year';
-      input[2].classList.add('error');
-      label[2].style.color = 'var(--clr-red)';
-    } else {
-      small[2].textContent = '';
-      input[2].classList.remove('error');
-      label[2].style.color = 'var(--clr-grey-500)';
-    }
+  if (yearInput.value > 2026 || yearInput.value < 1900) {
+    yearError.textContent = 'Must be a valid year';
+    errors(yearInput, yearLabel);
+  } else {
+    noError(yearError, yearInput, yearLabel);
+  }
+
+  isValidBirthDate();
+}
+
+function isValidBirthDate() {
+  const month = parseInt(monthInput.value);
+  const day = parseInt(dayInput.value);
+  const year = parseInt(yearInput.value);
+
+  const date = new Date(year, month - 1, day);
+
+  if (date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day) {
+    noError(dayError, dayInput, dayLabel);
+    noError(monthError, monthInput, monthLabel);
+    noError(yearError, yearInput, yearLabel);
+    isValid = true;
+  } else {
+    dayError.textContent = 'Must be a valid date';
+    errors(dayInput, dayLabel);
+    errors(monthInput, monthLabel);
+    errors(yearInput, yearLabel);
+    isValid = false;
+  }
+
+  if (isValid === true) {
+    results();
   }
 }
 
-function results() {}
+function results() {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1;
+  const currentDay = new Date().getDate();
+
+  if (isValid === true) {
+    yearResult.textContent = currentYear - yearInput.value;
+
+    monthResult.textContent = currentMonth - monthInput.value;
+
+    dayResult.textContent = currentDay - dayInput.value;
+  }
+}
+
+function errors(input, label) {
+  input.classList.add('error');
+  label.style.color = 'var(--clr-red)';
+}
+
+function noError(error, input, label) {
+  error.textContent = '';
+  input.classList.remove('error');
+  label.style.color = 'var(--clr-grey-500)';
+}
