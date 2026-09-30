@@ -55,25 +55,32 @@ function checkValid() {
   if (dayInput.value > 31 || dayInput.value < 1) {
     dayError.textContent = 'Must be a valid day';
     errors(dayInput, dayLabel);
+    isValid = false;
   } else {
     noError(dayError, dayInput, dayLabel);
+    isValid = true;
   }
 
   if (monthInput.value > 12 || monthInput.value < 1) {
     monthError.textContent = 'Must be a valid month';
     errors(monthInput, monthLabel);
+    isValid = false;
   } else {
     noError(monthError, monthInput, monthLabel);
+    isValid = true;
   }
 
   if (yearInput.value > 2026 || yearInput.value < 1900) {
     yearError.textContent = 'Must be a valid year';
     errors(yearInput, yearLabel);
+    isValid = false;
   } else {
     noError(yearError, yearInput, yearLabel);
+    isValid = true;
   }
-
-  isValidBirthDate();
+  if (isValid) {
+    isValidBirthDate();
+  }
 }
 
 function isValidBirthDate() {
